@@ -34,8 +34,8 @@ function initialize(data) {
   console.log(data);
 
   const treemap = d3.treemap()
-        .size([1000, 800])
-        .padding(10);
+    .size([1000, 800])
+    .padding(10);
 
   const root = d3.hierarchy(importsByYear[0]);
 
