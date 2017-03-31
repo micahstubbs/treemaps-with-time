@@ -36,9 +36,9 @@ function initialize(data) {
         .size([1000,800])
         .padding(10)
 
-    var root = d3.hierarchy(importsByYear[0])
+    const root = d3.hierarchy(importsByYear[0]);
 
-    root.sum(function (d) { return d.adj_value })
+    root.sum(d => d.adj_value)
 
     const treemapRendered = treemap(root)
 
