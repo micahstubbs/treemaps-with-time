@@ -44,52 +44,52 @@ function initialize(data) {
   const treemapRendered = treemap(root);
 
   d3.select('svg')
-        .selectAll('g.treecell')
-        .data(treemapRendered.descendants())
-        .enter()
-        .append('g')
-        .attr('class', 'treecell');
+    .selectAll('g.treecell')
+    .data(treemapRendered.descendants())
+    .enter()
+    .append('g')
+    .attr('class', 'treecell');
 
   d3.selectAll('g.treecell')
-        .append('rect')
-        .attr('transform', d => `translate(${d.x0},${d.y0})`)
-        .attr('width', d => d.x1 - d.x0)
-        .attr('height', d => d.y1 - d.y0)
-        .style('fill', '#e3cbbf')
-        .style('stroke', '#977d5a')
-        .style('stroke-width', '1px');
+    .append('rect')
+    .attr('transform', d => `translate(${d.x0},${d.y0})`)
+    .attr('width', d => d.x1 - d.x0)
+    .attr('height', d => d.y1 - d.y0)
+    .style('fill', '#e3cbbf')
+    .style('stroke', '#977d5a')
+    .style('stroke-width', '1px');
 
   d3.selectAll('g.treecell')
-        .each(function (d) {
-          d3.select(this)
-                .append('text')
-                .text(d.data.country)
-                .attr('transform', d => `translate(${d.x0 + ((d.x1 - d.x0) / 2)},${d.y0})`)
-                .style('text-anchor', 'middle');
+    .each(function (d) {
+      d3.select(this)
+        .append('text')
+        .text(d.data.country)
+        .attr('transform', d => `translate(${d.x0 + ((d.x1 - d.x0) / 2)},${d.y0})`)
+        .style('text-anchor', 'middle');
 
-          if (d.data && d.data.priorValues) {
-            const data = squareCorners(d.data.adj_value, d.data.priorValues, d.x0, d.x1, d.y0, d.y1);
+      if (d.data && d.data.priorValues) {
+        const data = squareCorners(d.data.adj_value, d.data.priorValues, d.x0, d.x1, d.y0, d.y1);
 
-            d3.select(this)
-                    .selectAll('path.cornervector')
-                    .data(data)
-                    .enter()
-                    .append('path')
-                    .attr('class', 'cornervector')
-                    .attr('d', (p, i) => cornerVectors(p, i, data, d.x1, d.y1))
-                    .style('fill', (p, i) => greys(i));
+        d3.select(this)
+          .selectAll('path.cornervector')
+          .data(data)
+          .enter()
+          .append('path')
+          .attr('class', 'cornervector')
+          .attr('d', (p, i) => cornerVectors(p, i, data, d.x1, d.y1))
+          .style('fill', (p, i) => greys(i));
 
-            d3.select(this)
-                    .selectAll('path.corner')
-                    .data(data)
-                    .enter()
-                    .append('path')
-                    .attr('d', p => corner(p))
-                    .style('stroke', '#151513')
-                    .style('stroke-width', '2px')
-                    .style('fill', 'none');
-          }
-        });
+        d3.select(this)
+          .selectAll('path.corner')
+          .data(data)
+          .enter()
+          .append('path')
+          .attr('d', p => corner(p))
+          .style('stroke', '#151513')
+          .style('stroke-width', '2px')
+          .style('fill', 'none');
+      }
+    });
 }
 
 function squareCorners(initialValue, priorValues, x0, x1, y0, y1) {
