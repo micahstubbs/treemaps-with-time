@@ -43,6 +43,10 @@ function initialize(data) {
 
   const treemapRendered = treemap(root);
 
+  d3.select('body').append('svg')
+    .attr('height', '1000px')
+    .attr('width', '1000px');
+
   d3.select('svg')
     .selectAll('g.treecell')
     .data(treemapRendered.descendants())
